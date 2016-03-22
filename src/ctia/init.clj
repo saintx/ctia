@@ -6,17 +6,7 @@
             [ctia.store :as store]
             [ctia.stores.es.store :as es]
             [ctia.stores.es.index :as es-index]
-            [ctia.stores.memory.actor :as ma]
-            [ctia.stores.memory.campaign :as mca]
-            [ctia.stores.memory.coa :as mco]
-            [ctia.stores.memory.exploit-target :as me]
-            [ctia.stores.memory.feedback :as mf]
-            [ctia.stores.memory.identity :as mi]
-            [ctia.stores.memory.incident :as mic]
-            [ctia.stores.memory.indicator :as min]
-            [ctia.stores.memory.judgement :as mj]
-            [ctia.stores.memory.sighting :as ms]
-            [ctia.stores.memory.ttp :as mt]
+            [ctia.init-mem-store :refer [init-mem-store!]]
             [ctia.init-file-store :refer [init-file-store!]]))
 
 (defn init-auth-service! []
@@ -28,21 +18,6 @@
       (throw (ex-info "Auth service not configured"
                       {:message "Unknown service"
                        :requested-service auth-service-name})))))
-
-(defn init-mem-store! []
-  (let [store-impls {store/actor-store     ma/->ActorStore
-                     store/judgement-store mj/->JudgementStore
-                     store/feedback-store  mf/->FeedbackStore
-                     store/campaign-store  mca/->CampaignStore
-                     store/coa-store       mco/->COAStore
-                     store/exploit-target-store me/->ExploitTargetStore
-                     store/incident-store  mic/->IncidentStore
-                     store/indicator-store min/->IndicatorStore
-                     store/sighting-store  ms/->SightingStore
-                     store/ttp-store       mt/->TTPStore
-                     store/identity-store  mi/->IdentityStore}]
-    (doseq [[store impl-fn] store-impls]
-      (reset! store (impl-fn (atom {}))))))
 
 (defn init-es-store! []
   (let [store-state (es-index/init-conn)
