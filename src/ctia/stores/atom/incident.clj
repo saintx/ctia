@@ -1,7 +1,7 @@
-(ns ctia.stores.file.incident
+(ns ctia.stores.atom.incident
   (:require [ctia.schemas.incident :refer [NewIncident StoredIncident realize-incident]]
             [ctia.store :refer [IIncidentStore]]
-            [ctia.stores.file.common :as mc]))
+            [ctia.stores.atom.common :as mc]))
 
 (def swap-incident (mc/make-swap-fn realize-incident))
 

@@ -1,13 +1,16 @@
 (ns ctia.init
-  (:require [ctia.auth :as auth]
+  (:require [clojure.edn :as edn]
+            [ctia.auth :as auth]
             [ctia.auth.allow-all :as allow-all]
             [ctia.auth.threatgrid :as threatgrid]
             [ctia.properties :as properties]
             [ctia.store :as store]
             [ctia.stores.es.store :as es]
             [ctia.stores.es.index :as es-index]
-            [ctia.init-mem-store :refer [init-mem-store!]]
-            [ctia.init-file-store :refer [init-file-store!]]))
+            [ctia.init-atom-store :refer [init-atom-store!]]))
+
+(defn config []
+  (edn/read-string (slurp "config.edn")))
 
 (defn init-auth-service! []
   (let [auth-service-name (get-in @properties/properties [:auth :service])]
@@ -40,6 +43,10 @@
       (reset! store (impl-fn store-state)))))
 
 (defn init! []
-  (properties/init!)
-  (init-auth-service!)
-  (init-mem-store!))
+  (let [config (config)]
+    (properties/init!)
+    (init-auth-service!)
+    (case (:storage-backend config)
+      "none" (init-atom-store! false)
+      "file" (init-atom-store! true)
+      "es" (init-es-store!))))

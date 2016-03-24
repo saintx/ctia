@@ -1,9 +1,9 @@
-(ns ctia.stores.file.sighting
+(ns ctia.stores.atom.sighting
   (:require [ctia.schemas.indicator :refer [StoredIndicator]]
             [ctia.schemas.sighting
              :refer [NewSighting StoredSighting realize-sighting]]
             [ctia.store :refer [ISightingStore]]
-            [ctia.stores.file.common :as mc]
+            [ctia.stores.atom.common :as mc]
             [schema.core :as s]))
 
 (def swap-sighting (mc/make-swap-fn realize-sighting))

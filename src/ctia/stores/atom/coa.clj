@@ -1,7 +1,7 @@
-(ns ctia.stores.memory.coa
+(ns ctia.stores.atom.coa
   (:require [ctia.schemas.coa :refer [NewCOA StoredCOA realize-coa]]
             [ctia.store :refer [ICOAStore]]
-            [ctia.stores.memory.common :as mc]))
+            [ctia.stores.atom.common :as mc]))
 
 (def swap-coa (mc/make-swap-fn realize-coa))
 

@@ -1,8 +1,8 @@
-(ns ctia.stores.memory.campaign
+(ns ctia.stores.atom.campaign
   (:require [ctia.schemas.campaign
              :refer [NewCampaign StoredCampaign realize-campaign]]
             [ctia.store :refer [ICampaignStore]]
-            [ctia.stores.memory.common :as mc]))
+            [ctia.stores.atom.common :as mc]))
 
 (def swap-campaign (mc/make-swap-fn realize-campaign))
 

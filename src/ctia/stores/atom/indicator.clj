@@ -1,9 +1,9 @@
-(ns ctia.stores.memory.indicator
+(ns ctia.stores.atom.indicator
   (:require [ctia.schemas.indicator
              :refer [NewIndicator StoredIndicator realize-indicator]]
             [ctia.schemas.judgement :refer [StoredJudgement]]
             [ctia.store :refer [IIndicatorStore]]
-            [ctia.stores.memory.common :as mc]
+            [ctia.stores.atom.common :as mc]
             [schema.core :as s]))
 
 (def swap-indicator (mc/make-swap-fn realize-indicator))

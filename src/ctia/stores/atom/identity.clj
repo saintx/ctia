@@ -1,7 +1,7 @@
-(ns ctia.stores.file.identity
+(ns ctia.stores.atom.identity
   (:require [ctia.schemas.identity :as identity]
             [ctia.store :refer [IIdentityStore]]
-            [ctia.stores.file.common :as mc]
+            [ctia.stores.atom.common :as mc]
             [schema.core :as s]
             [alandipert.enduro :as e]))
 

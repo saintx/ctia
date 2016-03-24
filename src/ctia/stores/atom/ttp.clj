@@ -1,7 +1,7 @@
-(ns ctia.stores.memory.ttp
+(ns ctia.stores.atom.ttp
   (:require [ctia.schemas.ttp :refer [NewTTP StoredTTP realize-ttp]]
             [ctia.store :refer [ITTPStore]]
-            [ctia.stores.memory.common :as mc]))
+            [ctia.stores.atom.common :as mc]))
 
 (def swap-ttp (mc/make-swap-fn realize-ttp))
 

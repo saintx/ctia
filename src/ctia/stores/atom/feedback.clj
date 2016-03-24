@@ -1,8 +1,9 @@
-(ns ctia.stores.memory.feedback
+(ns ctia.stores.atom.feedback
   (:require [ctia.schemas.feedback :refer [NewFeedback StoredFeedback realize-feedback]]
             [ctia.store :refer [IFeedbackStore]]
-            [ctia.stores.memory.common :as mc]
-            [schema.core :as s]))
+            [ctia.stores.atom.common :as mc]
+            [schema.core :as s]
+            [alandipert.enduro :as e]))
 
 (s/defn handle-create-feedback :- StoredFeedback
   [state :- (s/atom {s/Str StoredFeedback})
@@ -11,7 +12,7 @@
    judgement-id :- s/Str]
   (let [new-id ((mc/random-id "feedback") new-feedback)]
     (get
-     (swap! state
+     (e/swap! state
             (mc/make-swap-fn realize-feedback)
             new-feedback
             new-id

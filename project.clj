@@ -22,7 +22,11 @@
                  [hiccup "1.0.5"]
 
                  ;; Persistence
-                 [alandipert/enduro "1.2.0"]]
+                 [alandipert/enduro "1.2.0"]
+
+                 ;; Clogging
+                 [org.slf4j/slf4j-api "1.7.12"]
+                 [org.slf4j/slf4j-log4j12 "1.7.12"]]
 
   :resource-paths ["resources" "doc"]
   :ring {:handler ctia.handler/app

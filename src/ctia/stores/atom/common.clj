@@ -1,4 +1,4 @@
-(ns ctia.stores.file.common
+(ns ctia.stores.atom.common
   (:require [ctia.schemas.common :as c]
             [schema.core :as s]
             [alandipert.enduro :as e])

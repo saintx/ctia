@@ -127,7 +127,7 @@
         :login login
         (ok (update-actor @actor-store id login actor)))
       (GET "/:id" []
-        :return (s/maybe StoredActor)
+        ;; :return (s/maybe StoredActor)
         :summary "Gets an Actor by ID"
         :path-params [id :- s/Str]
         :header-params [api_key :- (s/maybe s/Str)]

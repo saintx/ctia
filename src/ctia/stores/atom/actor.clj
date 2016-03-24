@@ -1,7 +1,7 @@
-(ns ctia.stores.file.actor
+(ns ctia.stores.atom.actor
   (:require [ctia.schemas.actor :refer [NewActor StoredActor realize-actor]]
             [ctia.store :refer [IActorStore]]
-            [ctia.stores.file.common :as mc]))
+            [ctia.stores.atom.common :as mc]))
 
 (def swap-actor (mc/make-swap-fn realize-actor))
 
