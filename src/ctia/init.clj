@@ -7,7 +7,7 @@
             [ctia.store :as store]
             [ctia.stores.es.store :as es]
             [ctia.stores.es.index :as es-index]
-            [ctia.init-atom-store :refer [init-atom-store!]]))
+            [ctia.stores.atom :refer [init-atom-store!]]))
 
 (defn config []
   (edn/read-string (slurp "config.edn")))
@@ -43,10 +43,6 @@
       (reset! store (impl-fn store-state)))))
 
 (defn init! []
-  (let [config (config)]
-    (properties/init!)
-    (init-auth-service!)
-    (case (:storage-backend config)
-      "none" (init-atom-store! false)
-      "file" (init-atom-store! true)
-      "es" (init-es-store!))))
+  (properties/init!)
+  (init-auth-service!)
+  (init-atom-store!))

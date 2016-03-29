@@ -2,7 +2,8 @@
     ctia.lib.specter.paths
   (:require [com.rpl.specter :refer :all])
   (:import java.sql.Timestamp
-           org.joda.time.DateTime))
+           org.joda.time.DateTime
+           java.util.Date))
 
 (def all-last-all
   "Path for selecting nested maps like:
@@ -38,3 +39,9 @@
 
 (def walk-sqltimes
   (comp-paths (walker sqltime?)))
+
+(defn javadate? [x]
+  (instance? Date x))
+
+(def walk-javadates
+  (comp-paths (walker javadate?)))

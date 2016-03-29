@@ -3,6 +3,7 @@
   (:require [ctia.auth :as auth]
             [ctia.handler :as handler]
             [ctia.test-helpers.core :as helpers :refer [post get]]
+            [ctia.test-helpers.atom :as atom-helpers]
             [clojure.test :refer [deftest is testing use-fixtures join-fixtures]]))
 
 (use-fixtures :once helpers/fixture-properties)
@@ -10,7 +11,7 @@
 (use-fixtures :each (join-fixtures [(helpers/fixture-server handler/app)
                                     helpers/fixture-schema-validation
                                     helpers/fixture-allow-all-auth
-                                    helpers/fixture-in-memory-store]))
+                                    atom-helpers/fixture-atom-store]))
 
 (deftest allow-all-auth-judgement-routes-test
   (testing "POST /ctia/judgement"

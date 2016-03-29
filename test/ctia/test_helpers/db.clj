@@ -4,6 +4,7 @@
             [ctia.stores.sql.judgement :as sql-judgement]
             [ctia.stores.sql.store :as sql-store]
             [ctia.test-helpers.core :as h]
+            [ctia.test-helpers.atom :as a]
             [clojure.java.io :as io]
             [korma.core :as k]))
 
@@ -57,5 +58,5 @@
 (def sql-stores
   {store/judgement-store sql-store/->JudgementStore})
 
-(def fixture-sql-store (h/fixture-store (merge h/memory-stores
+(def fixture-sql-store (h/fixture-store (merge a/atom-stores
                                                sql-stores)))

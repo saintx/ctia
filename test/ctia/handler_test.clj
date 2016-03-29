@@ -4,6 +4,7 @@
             [ctia.test-helpers.core :refer [delete get post put] :as helpers]
             [ctia.test-helpers.db :as db-helpers]
             [ctia.test-helpers.index :as index-helpers]
+            [ctia.test-helpers.atom :as atom-helpers]
             [ctia.test-helpers.fake-whoami-service :as whoami-helpers]
             [clojure.test :refer [deftest is testing use-fixtures join-fixtures]]
             [ctia.schemas.common :as c]))
@@ -37,13 +38,13 @@
 
 (defmacro deftest-for-each-store [test-name & body]
   `(helpers/deftest-for-each-fixture ~test-name
-     {:memory-store helpers/fixture-in-memory-store
-      :sql-store    (join-fixtures [db-helpers/fixture-sql-store
+     {:sql-store    (join-fixtures [db-helpers/fixture-sql-store
                                     db-helpers/fixture-clean-db])
 
       :es-store     (join-fixtures [index-helpers/fixture-es-store
-                                    index-helpers/fixture-clean-index])}
+                                    index-helpers/fixture-clean-index])
 
+      :atom-store   (join-fixtures [atom-helpers/fixture-atom-store])}
 
      ~@body))
 
