@@ -17,23 +17,22 @@
 
 (def config (get-in @properties/properties [:ctia :store :atom]))
 
-(defn init-store-state [f]
-  (fn []
-    (f (init-atom! f true))))
-
 (defn stores []
-  {store/actor-store actor/->ActorStore
-   store/campaign-store campaign/->CampaignStore
-   store/coa-store coa/->COAStore
-   store/exploit-target-store target/->ExploitTargetStore
-   store/feedback-store feedback/->FeedbackStore
-   store/identity-store identity/->IdentityStore
-   store/indicator-store indicator/->IndicatorStore
-   store/judgement-store judgement/->JudgementStore
-   store/sighting-store sighting/->SightingStore
-   store/ttp-store ttp/->TTPStore})
+  {:actor [store/actor-store actor/->ActorStore]
+   :campaign [store/campaign-store campaign/->CampaignStore]
+   :coa [store/coa-store coa/->COAStore]
+   :exploit [store/exploit-target-store target/->ExploitTargetStore]
+   :feedback [store/feedback-store feedback/->FeedbackStore]
+   :identity [store/identity-store identity/->IdentityStore]
+   :indicator [store/indicator-store indicator/->IndicatorStore]
+   :judgement [store/judgement-store judgement/->JudgementStore]
+   :sighting [store/sighting-store sighting/->SightingStore]
+   :ttp [store/ttp-store ttp/->TTPStore]})
 
 (defn init-atom-store! []
-  (let [store-impls (stores)]
-    (doseq [[store impl-fn] store-impls]
-      (reset! store (impl-fn (init-atom! impl-fn false))))))
+  (doseq [[key vals] (stores)]
+    (let [[store impl-fn] vals]
+      (reset! store (impl-fn (e/file-atom {} (str "/tmp/ctia/" (name key))))))))
+
+(comment (init-atom! actor/->ActorStore false)
+         (println store/actor-store))

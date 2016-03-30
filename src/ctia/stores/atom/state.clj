@@ -7,29 +7,19 @@
 
 (def atom-config (get-in @properties [:ctia :store :atom]))
 
-(def file-data-dir (get-in atom-config [:filepath]))
-
-(defn test-file-data-dir []
-  (str (get-in atom-config [:testpath])
-       "/"
-       (UUID/randomUUID)))
-
-(defn purge-file-atoms! []
-  (let [dir (file file-data-dir)]
-    (println  (.listFiles dir))
-    (when (.isDirectory dir)
-      (dorun
-       (map #(delete-file %) (.listFiles dir))))))
-
 (defn model->file-path [model test?]
   (let [data-dir (if test?
-                   (test-file-data-dir)
-                   file-data-dir)]
-    (str data-dir "/" model ".clj")))
+                   (:testpath atom-config)
+                   (:filepath atom-config))]
+    (str data-dir "/" model)))
 
 (defn file-atom [model test?]
-  (e/file-atom {}
-               (model->file-path model test?)))
+  (println "making a file atom")
+  (let [result
+        (e/file-atom {}
+                     (model->file-path model test?))]
+    (println (model->file-path model test?))
+    result))
 
 (defn store-instance->name [store]
   (-> store
