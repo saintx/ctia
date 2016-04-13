@@ -50,7 +50,7 @@ shard_timeout: 0
 
 # Set to false to have a complete disregard for the validity of the SSL
 # certificate.
-verify_ssl: true
+verify_ssl: false
 
 # SSL for outgoing requests from the Kibana Server (PEM formatted)
 # ssl_key_file: /path/to/your/server.key
