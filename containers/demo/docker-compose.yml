@@ -48,7 +48,7 @@ services:
     image: nginx:alpine
     volumes:
          - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf
-         - ./nginx/config/.htpasswd:/etc/nginx/.htpasswd
+         - /etc/nginx/.htpasswd:/etc/nginx/.htpasswd
     ports:
       - "80:80"
     links:
