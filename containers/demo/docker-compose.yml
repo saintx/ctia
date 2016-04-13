@@ -2,6 +2,8 @@ version: "2"
 services:
   ctia:
     image: ctia:latest
+    volumes:
+      - ./ctia-default.properties:/usr/src/app/resources/ctia-default.properties
     build:
       context: ../../
       dockerfile: Dockerfile
