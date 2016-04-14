@@ -4,14 +4,13 @@ This is a containerized and integrated demo deployment of the Cisco Threat Intel
 
 This demo integrates:
 
+- Nginx reverse proxy on port 80
 - CTIA service on port 3000
 - ElasticSearch service on port 9200
 - Logstash service on port 5000
 - Kibana service on port 5601
 - Redis service on port 6379
-- Nginx reverse proxy on port 80
-
-CTIA service running on port 3000
+- Logspout (routes container logs to logstash)
 
 ## Setting up HTTP Basic Auth
 
@@ -30,5 +29,3 @@ To build and run the containers with docker-compose, install docker and docker c
 - http://hostname/kibana/ - Kibana dashboard
 
 ## Known Issues
-
-* The /status link in Kibana does not work from the Kibana dashboard.  If you visit ```http://localhost/status/``` (with the trailing slash) it will resolve correctly.
