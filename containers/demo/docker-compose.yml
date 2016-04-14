@@ -31,8 +31,21 @@ services:
       - ./logstash/config:/etc/logstash/conf.d
     ports:
       - "5000:5000"
+      - "5000:5000/udp"
+    environment:
+      # prevents logstash output from being routed to logstash.
+      LOGSPOUT: ignore
     links:
       - elasticsearch
+  logspout:
+    image: gliderlabs/logspout:latest
+    environment:
+      DEBUG: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: syslog://logstash:5000
+    links:
+      - logstash
   kibana:
     build: kibana/
     volumes:
